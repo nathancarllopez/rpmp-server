@@ -50,34 +50,5 @@ export type Database = MergeDeep<
   }
 >
 
-export type SupaAllBackstockRow = Database["public"]["Views"]["all_backstock"]["Row"];
-export type SupaFlavorRow = Database["public"]["Tables"]["flavors"]["Row"];
-export type SupaInsertProfile = Database["public"]["Tables"]["profiles"]['Insert'];
-export type SupaOrderHeaderRow = Database["public"]["Tables"]["order_headers"]["Row"];
-export type SupaOrderHistoryRow = Database["public"]["Tables"]["order_history"]["Row"];
-export type SupaProfileRow = Database['public']['Tables']['profiles']['Row'];
 export type SupaProteinRow = Database["public"]["Tables"]["proteins"]["Row"];
-export type SupaProteinWithFlavorsRow = Database["public"]["Views"]["proteins_with_flavors"]["Row"];
 export type SupaPullListRow = Database["public"]["Tables"]["pull_list"]["Row"];
-export type SupaRoleInfoRow = Database["public"]["Tables"]["role_info"]["Row"];
-export type SupaTimecardHistoryRow = Database["public"]["Tables"]["timecards_history"]["Row"];
-export type SupaVeggieCarbInfoRow = Database["public"]["Tables"]["veggies_carbs"]["Row"];
-export type SupaStoreInfoRow = Database["public"]["Tables"]["store_info"]["Row"]
-export type SupaShopTemplateRow = Database["public"]["Views"]["shop_sheet_template"]["Row"]
-export type SupaCookSheetSectionsRow = Database["public"]["Tables"]["cook_sheet_sections"]["Row"]
-
-type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
-  ? `${P}${Capitalize<CamelCase<R>>}`
-  : S;
-
-// E is a map of exceptions
-export type ToCamelCase<T, E extends Record<string, any> = {}> = {
-  [K in keyof T as CamelCase<K & string>]:
-    CamelCase<K & string> extends keyof E
-      ? E[CamelCase<K & string>]
-      : T[K] extends Array<infer U>
-        ? Array<ToCamelCase<U, E>>
-        : T[K] extends object
-          ? ToCamelCase<T[K], E>
-          : T[K];
-};
