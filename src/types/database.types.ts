@@ -1,5 +1,3 @@
-
-
 export type Json =
   | string
   | number
