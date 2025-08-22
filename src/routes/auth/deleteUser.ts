@@ -3,7 +3,7 @@ import { supabase } from "../../supabase-client";
 
 export default async function deleteUser(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const { idToDelete } = req.body;
 
@@ -12,9 +12,8 @@ export default async function deleteUser(
     return;
   }
 
-  const { error: deleteError } = await supabase.auth.admin.deleteUser(
-    idToDelete
-  );
+  const { error: deleteError } =
+    await supabase.auth.admin.deleteUser(idToDelete);
 
   if (deleteError) {
     console.log("deleteError");

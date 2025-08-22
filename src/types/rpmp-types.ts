@@ -1,10 +1,6 @@
 // import type { ReactNode } from "react";
 import { Constants } from "./database.types";
-import type {
-  Database,
-  SupaProteinRow,
-  SupaPullListRow,
-} from "./supa-types";
+import type { Database, SupaProteinRow, SupaPullListRow } from "./supa-types";
 
 type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
   ? `${P}${Capitalize<CamelCase<R>>}`
@@ -12,14 +8,13 @@ type CamelCase<S extends string> = S extends `${infer P}_${infer R}`
 
 // E is a map of exceptions
 type ToCamelCase<T, E extends Record<string, any> = {}> = {
-  [K in keyof T as CamelCase<K & string>]:
-    CamelCase<K & string> extends keyof E
-      ? E[CamelCase<K & string>]
-      : T[K] extends Array<infer U>
-        ? Array<ToCamelCase<U, E>>
-        : T[K] extends object
-          ? ToCamelCase<T[K], E>
-          : T[K];
+  [K in keyof T as CamelCase<K & string>]: CamelCase<K & string> extends keyof E
+    ? E[CamelCase<K & string>]
+    : T[K] extends Array<infer U>
+      ? Array<ToCamelCase<U, E>>
+      : T[K] extends object
+        ? ToCamelCase<T[K], E>
+        : T[K];
 };
 
 /**
@@ -33,10 +28,7 @@ export const containerSizes = Constants["public"]["Enums"]["container_size"];
 export type ContainerSize = Database["public"]["Enums"]["container_size"];
 
 export type PullListRow = ToCamelCase<SupaPullListRow>;
-export type ProteinRow = ToCamelCase<
-  SupaProteinRow,
-  { flavors: FlavorInfo[] }
->;
+export type ProteinRow = ToCamelCase<SupaProteinRow, { flavors: FlavorInfo[] }>;
 
 export interface FlavorInfo {
   protein: string;
@@ -59,10 +51,10 @@ export interface FlavorInfoWithCalcs extends FlavorInfo {
 
 export interface ProteinRowWithCalcs extends ProteinRow {
   flavorInfo: Record<string, FlavorInfoWithCalcs>;
-  totalWeightToCook: number
+  totalWeightToCook: number;
 }
 
-export type AllProteinInfo = Record<string, ProteinRowWithCalcs>
+export type AllProteinInfo = Record<string, ProteinRowWithCalcs>;
 
 export interface OrderStatistics {
   numOrders: number;
@@ -99,7 +91,7 @@ export interface IngredientAmounts {
     amount: number;
     lbsPer: number;
     units: string;
-    ingredientType: "proteins" | "veggies" | "carbs" | "misc"
+    ingredientType: "proteins" | "veggies" | "carbs" | "misc";
   };
 }
 
@@ -108,21 +100,21 @@ export interface Meal {
   proteinLabel: string;
   flavor: string;
   flavorLabel: string;
-  orderedWeight: number;  // Amount ordered by customer
-  weightAfterBackstock: number;   // Amount after backstock adjustment
-  weightToCook: number;    // Amount before shrink, i.e., amount to cook
+  orderedWeight: number; // Amount ordered by customer
+  weightAfterBackstock: number; // Amount after backstock adjustment
+  weightToCook: number; // Amount before shrink, i.e., amount to cook
   weightLbOz: string;
   backstockWeight: number;
   displayColor: string | null;
 }
 
 export interface CarbToCook {
-  displayOrder: number,
-  name: string,
-  label: string,
-  amountWithUnits: string,
-  water: string | null,
-  note: string | null
+  displayOrder: number;
+  name: string;
+  label: string;
+  amountWithUnits: string;
+  water: string | null;
+  note: string | null;
 }
 
 export interface CookSheetInfo {
@@ -141,7 +133,7 @@ export interface AllVeggieCarbInfo {
     cookDisplayOrder: number | null;
     cookLabel: string | null;
     waterMultiplier: number | null;
-  }
+  };
 }
 
 export interface StoreRow {

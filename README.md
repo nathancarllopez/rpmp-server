@@ -1,6 +1,6 @@
 # RPMP Server
 
-RPMP Server is a backend service built with TypeScript and Express designed to manage and serve resources for the RPMP Dashboard (link to repo below). It provides APIs for authentication via Supabase, as well as pdf generation tools for processing food orders and creating timecards. 
+RPMP Server is a backend service built with TypeScript and Express designed to manage and serve resources for the RPMP Dashboard (link to repo below). It provides APIs for authentication via Supabase, as well as pdf generation tools for processing food orders and creating timecards.
 
 ## Features
 

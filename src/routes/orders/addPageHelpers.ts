@@ -14,7 +14,7 @@ import {
 export function addCookSheetExplicit(
   report: PDFDocumentWithTables,
   cookSheetInfo: CookSheetInfo,
-  proteinInfo: AllProteinInfo
+  proteinInfo: AllProteinInfo,
 ) {
   const { carbsToCook, numTeriyakiCuppies, proteinCubes } = cookSheetInfo;
 
@@ -71,7 +71,7 @@ export function addCookSheetExplicit(
 
       return weights;
     },
-    {} as Record<string, { cookedLbOz: string; sauceOz: string }>
+    {} as Record<string, { cookedLbOz: string; sauceOz: string }>,
   );
 
   const chickenRows = [
@@ -163,7 +163,7 @@ export function addCookSheetExplicit(
         };
       }),
     },
-    { title: "Chicken (Purple)" }
+    { title: "Chicken (Purple)" },
   );
   report.moveDown();
   //#endregion
@@ -225,7 +225,7 @@ export function addCookSheetExplicit(
           const flavorInfo = fishProteinInfo.flavorInfo[flavor];
           if (flavorInfo === undefined) {
             throw new Error(
-              `Could not find flavor info for ${info.protein}-${flavor}`
+              `Could not find flavor info for ${info.protein}-${flavor}`,
             );
           }
 
@@ -235,7 +235,7 @@ export function addCookSheetExplicit(
           };
         }),
       },
-      { title: info.title }
+      { title: info.title },
     );
 
     if (index !== fishTableInfo.length - 1) {
@@ -377,14 +377,14 @@ export function addCookSheetExplicit(
             const birdCowProteinInfo = proteinInfo[info.protein];
             if (birdCowProteinInfo === undefined) {
               throw new Error(
-                `Could not find protein info for ${info.protein}`
+                `Could not find protein info for ${info.protein}`,
               );
             }
 
             const flavorInfo = birdCowProteinInfo.flavorInfo[flavor];
             if (flavorInfo === undefined) {
               throw new Error(
-                `Could not find flavor info for ${info.protein}-${flavor}`
+                `Could not find flavor info for ${info.protein}-${flavor}`,
               );
             }
             const { weightLbOz } = flavorInfo;
@@ -394,14 +394,14 @@ export function addCookSheetExplicit(
                 birdCowProteinInfo.flavorInfo[cookedTeriyakiFlavor];
               if (ctFlavorInfo === undefined) {
                 throw new Error(
-                  `Could not find flavor info for ${info.protein}-${cookedTeriyakiFlavor}`
+                  `Could not find flavor info for ${info.protein}-${cookedTeriyakiFlavor}`,
                 );
               }
 
               const flavorWeightToCook = flavorInfo.weightToCook;
               const ctWeightToCook = ctFlavorInfo.weightToCook;
               const combinedLbOz = getLbOzWeight(
-                flavorWeightToCook + ctWeightToCook
+                flavorWeightToCook + ctWeightToCook,
               );
 
               return {
@@ -416,10 +416,10 @@ export function addCookSheetExplicit(
               rawWeight: weightLbOz,
               cookedTeriyaki: "-",
             };
-          }
+          },
         ),
       },
-      { title: title }
+      { title: title },
     );
 
     if (index !== birdCowTableInfo.length - 1) {
@@ -465,7 +465,7 @@ export function addCookSheetExplicit(
         };
       }),
     },
-    { title: "Complex Carbohydrates (Yellow Tape)" }
+    { title: "Complex Carbohydrates (Yellow Tape)" },
   );
 
   report.moveDown();
@@ -495,7 +495,7 @@ export function addCookSheetExplicit(
         const flavorInfo = eggWhiteProteinInfo.flavorInfo[flavor];
         if (flavorInfo === undefined) {
           throw new Error(
-            `Could not find protein info for egg whites with flavor ${flavor}`
+            `Could not find protein info for egg whites with flavor ${flavor}`,
           );
         }
 
@@ -505,7 +505,7 @@ export function addCookSheetExplicit(
         };
       }),
     },
-    { title: "Egg Whites" }
+    { title: "Egg Whites" },
   );
 
   report.moveDown();
@@ -516,7 +516,7 @@ export function addCookSheetExplicit(
 
 export function addShopSheet(
   report: PDFDocumentWithTables,
-  shopSheetRows: [string, StoreRow[]][]
+  shopSheetRows: [string, StoreRow[]][],
 ) {
   // Title
   report.fontSize(16).text("Shop Sheet", { align: "center" });
@@ -528,12 +528,11 @@ export function addShopSheet(
   report.moveDown();
   report.fontSize(12);
 
-  const filteredShopRows: [string, StoreRow[]][] = shopSheetRows.map(([storeLabel, storeRows]) => {
-    return [
-      storeLabel,
-      storeRows.filter((row) => row.quantity !== 0)
-    ]
-  });
+  const filteredShopRows: [string, StoreRow[]][] = shopSheetRows.map(
+    ([storeLabel, storeRows]) => {
+      return [storeLabel, storeRows.filter((row) => row.quantity !== 0)];
+    },
+  );
 
   filteredShopRows.forEach(([storeLabel, storeRows]) => {
     if (storeLabel === "sysco") return;
@@ -557,7 +556,7 @@ export function addShopSheet(
           priceChange: "",
         })),
       },
-      { title: storeLabel }
+      { title: storeLabel },
     );
   });
 }
@@ -568,7 +567,7 @@ export function addPullList(
   pullListInfo: {
     extraRoastedVeggies: number;
     pullRows: PullListRow[];
-  }
+  },
 ) {
   const { numMeals, veggieCarbs } = stats;
   const { extraRoastedVeggies, pullRows } = pullListInfo;
@@ -732,7 +731,7 @@ export function addOrders(report: PDFDocumentWithTables, orders: Order[]) {
 
 export function addErrors(
   report: PDFDocumentWithTables,
-  orderErrors: OrderError[]
+  orderErrors: OrderError[],
 ) {
   // Title
   report.fontSize(16).text("Errors", { align: "center" });
@@ -763,7 +762,7 @@ export function addErrors(
 
 export function addSummary(
   report: PDFDocumentWithTables,
-  stats: OrderStatistics
+  stats: OrderStatistics,
 ) {
   // console.log('stats', stats);
 
@@ -795,7 +794,7 @@ export function addSummary(
         },
       ],
     },
-    { title: "Statistics" }
+    { title: "Statistics" },
   );
   report.moveDown();
 
@@ -825,15 +824,15 @@ export function addSummary(
         dataWidths.proteins = {
           label: Math.max(
             dataWidths.proteins.label,
-            getTextWidth(report, label)
+            getTextWidth(report, label),
           ),
           lbsPer: Math.max(
             dataWidths.proteins.lbsPer,
-            getTextWidth(report, String(lbsPer))
+            getTextWidth(report, String(lbsPer)),
           ),
           amount: Math.max(
             dataWidths.proteins.amount,
-            getTextWidth(report, String(amount))
+            getTextWidth(report, String(amount)),
           ),
         };
 
@@ -845,7 +844,7 @@ export function addSummary(
 
         return pDatas;
       },
-      [] as Record<string, string>[]
+      [] as Record<string, string>[],
     ),
     veggieCarbs: Object.keys(veggieCarbs).reduce(
       (vcDatas, key) => {
@@ -858,19 +857,19 @@ export function addSummary(
         dataWidths.veggieCarbs = {
           label: Math.max(
             dataWidths.veggieCarbs.label,
-            getTextWidth(report, label)
+            getTextWidth(report, label),
           ),
           lbsPer: Math.max(
             dataWidths.veggieCarbs.lbsPer,
-            getTextWidth(report, String(lbsPer))
+            getTextWidth(report, String(lbsPer)),
           ),
           amount: Math.max(
             dataWidths.veggieCarbs.amount,
-            getTextWidth(report, String(amount))
+            getTextWidth(report, String(amount)),
           ),
           total: Math.max(
             dataWidths.veggieCarbs.total,
-            getTextWidth(report, total)
+            getTextWidth(report, total),
           ),
         };
 
@@ -883,7 +882,7 @@ export function addSummary(
 
         return vcDatas;
       },
-      [] as Record<string, string>[]
+      [] as Record<string, string>[],
     ),
     containers: containerSizes.reduce(
       (contDatas, label) => {
@@ -892,11 +891,11 @@ export function addSummary(
         dataWidths.containers = {
           label: Math.max(
             dataWidths.containers.label,
-            getTextWidth(report, label)
+            getTextWidth(report, label),
           ),
           count: Math.max(
             dataWidths.containers.count,
-            getTextWidth(report, count)
+            getTextWidth(report, count),
           ),
         };
 
@@ -904,7 +903,7 @@ export function addSummary(
 
         return contDatas;
       },
-      [] as Record<string, string>[]
+      [] as Record<string, string>[],
     ),
   };
 
@@ -972,20 +971,20 @@ export function addSummary(
   const verticalTableWidths = {
     proteins: Object.values(dataWidths.proteins).reduce(
       (total, value) => total + value,
-      0
+      0,
     ),
     veggieCarbs: Object.values(dataWidths.veggieCarbs).reduce(
       (total, value) => total + value,
-      0
+      0,
     ),
     containers: Object.values(dataWidths.containers).reduce(
       (total, value) => total + value,
-      0
+      0,
     ),
   };
   const totalTableWidth = Object.values(verticalTableWidths).reduce(
     (total, value) => total + value,
-    0
+    0,
   );
 
   const pageWidth =

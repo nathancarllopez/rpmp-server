@@ -4,7 +4,7 @@ import { supabase } from "../supabase-client";
 export const requireAdmin: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const authHeader = req.headers.authorization;
 

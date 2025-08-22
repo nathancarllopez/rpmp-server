@@ -3,7 +3,7 @@ import { supabase } from "../../supabase-client";
 
 export default async function createUser(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const { email, profileData = {} } = req.body;
 
@@ -62,7 +62,7 @@ export default async function createUser(
   }
 
   /** Add profile picture to storage */
-  const { data: profilePicData , error: avatarError } = await supabase.storage
+  const { data: profilePicData, error: avatarError } = await supabase.storage
     .from("avatars")
     .copy("image-missing.jpg", `profilePics/${user.id}.jpg`);
 
@@ -77,7 +77,9 @@ export default async function createUser(
     return;
   }
 
-  const { data } = supabase.storage.from("avatars").getPublicUrl(profilePicData.path);
+  const { data } = supabase.storage
+    .from("avatars")
+    .getPublicUrl(profilePicData.path);
   const profilePicUrl = data.publicUrl;
 
   res.status(200).json({ profile, profilePicUrl });

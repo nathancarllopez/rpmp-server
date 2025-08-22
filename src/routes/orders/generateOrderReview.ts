@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
 import PDFDocumentWithTables from "pdfkit-table";
-import { Meal, Order, OrderError, OrderStatistics } from "../../types/rpmp-types";
+import {
+  Meal,
+  Order,
+  OrderError,
+  OrderStatistics,
+} from "../../types/rpmp-types";
 import { addErrors, addMeals, addOrders, addSummary } from "./addPageHelpers";
 
 export default async function generateOrderReview(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const {
     meals,

@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth/route";
 import ordersRoutes from "./routes/orders/route";
-import timecardsRoutes from "./routes/timecards/route"
+import timecardsRoutes from "./routes/timecards/route";
 
 const app = express();
 const PORT = process.env.PORT || 3001;

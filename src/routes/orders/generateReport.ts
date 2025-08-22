@@ -1,11 +1,28 @@
 import { Request, Response } from "express";
 import PDFDocumentWithTables from "pdfkit-table";
-import { addCookSheetExplicit, addErrors, addMeals, addOrders, addPullList, addShopSheet, addSummary } from "./addPageHelpers";
-import { AllProteinInfo, CookSheetInfo, Meal, Order, OrderError, OrderStatistics, PullListRow, StoreRow } from "../../types/rpmp-types";
+import {
+  addCookSheetExplicit,
+  addErrors,
+  addMeals,
+  addOrders,
+  addPullList,
+  addShopSheet,
+  addSummary,
+} from "./addPageHelpers";
+import {
+  AllProteinInfo,
+  CookSheetInfo,
+  Meal,
+  Order,
+  OrderError,
+  OrderStatistics,
+  PullListRow,
+  StoreRow,
+} from "../../types/rpmp-types";
 
 export default async function generateReport(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const {
     meals,
@@ -15,19 +32,19 @@ export default async function generateReport(
     pullListInfo,
     shopSheetRows,
     cookSheetInfo,
-    proteinInfo
+    proteinInfo,
   }: {
-    meals: Meal[],
-    orders: Order[],
-    orderErrors: OrderError[],
-    stats: OrderStatistics,
+    meals: Meal[];
+    orders: Order[];
+    orderErrors: OrderError[];
+    stats: OrderStatistics;
     pullListInfo: {
       extraRoastedVeggies: number;
       pullRows: PullListRow[];
-    },
-    shopSheetRows: [string, StoreRow[]][],
-    cookSheetInfo: CookSheetInfo,
-    proteinInfo: AllProteinInfo
+    };
+    shopSheetRows: [string, StoreRow[]][];
+    cookSheetInfo: CookSheetInfo;
+    proteinInfo: AllProteinInfo;
   } = req.body;
 
   try {
@@ -46,7 +63,7 @@ export default async function generateReport(
     report.addPage();
     addPullList(report, stats, pullListInfo);
     report.addPage();
-    addShopSheet(report, shopSheetRows)
+    addShopSheet(report, shopSheetRows);
     report.addPage();
     addCookSheetExplicit(report, cookSheetInfo, proteinInfo);
 
